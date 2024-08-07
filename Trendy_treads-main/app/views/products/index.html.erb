@@ -1,0 +1,63 @@
+<main class="container my-4">
+  <h2>Products</h2>
+  <div class="mb-3">
+    <%= link_to 'On Sale', products_path(on_sale: true), class: 'button' %>
+    <%= link_to 'New Products', products_path(new: true), class: 'button' %>
+    <%= link_to 'Recently Updated', products_path(recently_updated: true), class: 'button' %>
+  </div>
+
+  <!-- Search Section -->
+  <h2>Search Products</h2>
+  <%= form_with url: products_path, method: :get, local: true, class: 'form-inline' do |f| %>
+    <div class="form-group mr-2">
+      <%= f.label :category_id, 'Category:' %>
+      <%= f.select :category_id, options_from_collection_for_select(Category.all, :id, :name), { include_blank: 'All Categories' }, class: 'form-control' %>
+    </div>
+    <div class="form-group mr-2">
+      <%= f.label :name, 'Name:' %>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.submit 'Search', class: 'button' %>
+    </div>
+  <% end %>
+
+  <!-- Display Products -->
+  <% if @products.any? %>
+    <ul class="list-unstyled">
+      <% @products.each do |product| %>
+        <li class="media mb-4">
+          <% if product.image.attached? %>
+            <%= image_tag url_for(product.image), alt: product.name, size: "100x100", class: "mr-3" %>
+          <% else %>
+            <%= image_tag asset_path('default_image.png'), alt: 'No image available', size: "100x100", class: "mr-3" %>
+          <% end %>
+          <div class="media-body">
+            <h5 class="mt-0 mb-1">
+              <%= link_to product.name, product_path(product) %>
+            </h5>
+            <% if product.on_sale %>
+              <p>
+                Sale Price: <strong><%= number_to_currency(product.sale_price) %></strong>
+                <small>
+                  was <del><%= number_to_currency(product.price) %></del>
+                </small>
+                <br>
+                <span class="text-danger">
+                  Limited Time Deal: <strong><%= "#{number_to_percentage(percentage_off(product.price, product.sale_price), precision: 0)} off" %></strong>
+                </span>
+              </p>
+            <% else %>
+              <p><%= number_to_currency(product.price) %></p>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+
+    <!-- Pagination -->
+    <%= paginate @products %>
+  <% else %>
+    <p class="alert alert-info">No products found. Please adjust your search criteria and try again.</p>
+  <% end %>
+</main>

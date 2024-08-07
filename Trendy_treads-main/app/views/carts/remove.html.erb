@@ -1,0 +1,7 @@
+<!-- app/views/cart/remove.html.erb -->
+<main class="container my-4">
+  <h2>Product Removed from Cart</h2>
+  <p><%= @product.name %> has been removed from your cart.</p>
+  <%= link_to 'Continue Shopping', products_path, class: 'btn btn-primary' %>
+  <%= link_to 'View Cart', cart_path, class: 'btn btn-secondary' %>
+</main>

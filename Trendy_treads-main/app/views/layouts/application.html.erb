@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechGadgetHub</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Custom Stylesheet -->
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+  <!-- jQuery (must be loaded before Bootstrap's JavaScript) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
+  <!-- Popper.js (required for Bootstrap) -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <!-- Rails JavaScript (with importmaps) -->
+  <%= javascript_importmap_tags %>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <header class="container my-4">
+    <%= render 'shared/header' %>
+  </header>
+
+  <div class="container">
+    <% if notice.present? %>
+      <p class="notice alert alert-info"><%= notice %></p>
+    <% end %>
+    <% if alert.present? %>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
+
+    <%= render 'shared/breadcrumbs' %>
+
+    <%= yield %>
+  </div>
+
+  <footer class="container my-4 text-center">
+    <%= render 'shared/footer' %>
+  </footer>
+</body>
+</html>

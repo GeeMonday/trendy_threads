@@ -1,0 +1,115 @@
+<h1>Checkout</h1>
+
+<% if @cart.cart_items.any? %>
+  <h2>Order Summary</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart.cart_items.each do |item| %>
+        <tr>
+          <td><%= item.product.name %></td>
+          <td><%= item.quantity %></td>
+          <td><%= number_to_currency(item.product.price) %></td>
+          <td><%= number_to_currency(item.product.price * item.quantity) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <h3>Subtotal: <%= number_to_currency(@cart.cart_items.sum { |item| item.product.price * item.quantity }) %></h3>
+
+  <%= form_with model: @order, url: complete_checkout_cart_path, method: :post, local: true do |f| %>
+    <div class="form-group">
+      <%= f.label :address_street, 'Street Address' %>
+      <%= f.text_field :address_street, value: current_user.address&.street, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :address_city, 'City' %>
+      <%= f.text_field :address_city, value: current_user.address&.city, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :address_postal_code, 'Postal Code' %>
+      <%= f.text_field :address_postal_code, value: current_user.address&.postal_code, class: 'form-control' %>
+      <% if @order.errors[:address_postal_code].any? %>
+        <div class="text-danger">
+          <% @order.errors[:address_postal_code].each do |error| %>
+            <p><%= error %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="form-group">
+      <%= f.label :province_id, 'Province' %>
+      <%= f.collection_select :province_id, @provinces, :id, :name, include_blank: 'Select Province', class: 'form-control' %>
+    </div>
+    <div>
+      <%= f.submit 'Place Order', id: 'complete-order-button', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+<% else %>
+  <p>Your cart is empty.</p>
+<% end %>
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  th, td {
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  h2 {
+    margin-top: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+  }
+  h3 {
+    margin-top: 10px;
+  }
+  .btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .btn-primary {
+    background-color: #007bff;
+  }
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  .form-group {
+    margin-bottom: 15px;
+  }
+  .form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .text-danger {
+    color: #dc3545;
+  }
+</style>

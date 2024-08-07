@@ -1,0 +1,49 @@
+// app/assets/stylesheets/application.scss
+
+// Define primary color
+$primary-color: #007bff;
+
+// Button styles
+.button {
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+// Responsive styles
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+
+  .button {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .media {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .media-body {
+    text-align: center;
+  }
+}
+
+@media (min-width: 769px) {
+  .container {
+    padding: 30px;
+  }
+}

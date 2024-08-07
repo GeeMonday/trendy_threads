@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  province_id: 1
+  total_price: 9.99
+  status: MyString
+  created_at: 2024-07-17 19:52:07
+  updated_at: 2024-07-17 19:52:07
+
+two:
+  user_id: 1
+  province_id: 1
+  total_price: 9.99
+  status: MyString
+  created_at: 2024-07-17 19:52:07
+  updated_at: 2024-07-17 19:52:07

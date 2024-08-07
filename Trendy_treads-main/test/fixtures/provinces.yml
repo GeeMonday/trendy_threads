@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  tax_rate: 9.99
+  pst_rate: 9.99
+  hst_rate: 9.99
+  gst_rate: 9.99
+  created_at: 2024-07-17 19:52:01
+  updated_at: 2024-07-17 19:52:01
+
+two:
+  name: MyString
+  tax_rate: 9.99
+  pst_rate: 9.99
+  hst_rate: 9.99
+  gst_rate: 9.99
+  created_at: 2024-07-17 19:52:01
+  updated_at: 2024-07-17 19:52:01

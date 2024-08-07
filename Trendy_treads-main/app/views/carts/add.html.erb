@@ -1,0 +1,7 @@
+<!-- app/views/cart/add.html.erb -->
+<main class="container my-4">
+  <h2>Product Added to Cart</h2>
+  <p><%= @product.name %> has been added to your cart.</p>
+  <%= link_to 'Continue Shopping', products_path, class: 'btn btn-primary' %>
+  <%= link_to 'View Cart', cart_path, class: 'btn btn-secondary' %>
+</main>

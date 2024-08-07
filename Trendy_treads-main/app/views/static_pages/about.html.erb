@@ -1,0 +1,25 @@
+<% if @page %>
+  <h1><%= @page.title %></h1>
+<% else %>
+  <h1>About Us</h1>
+<% end %>
+
+<div>
+  <p>Welcome to TechGadgetHub, your ultimate destination for the latest and greatest in tech gadgets. Our mission is to bring you the best products at the most competitive prices, all while providing exceptional customer service.</p>
+
+  <h2>Our Story</h2>
+  <p>TechGadgetHub was founded in 2020 by a team of technology enthusiasts who wanted to create a one-stop shop for cutting-edge gadgets and electronics. From the latest smartphones to innovative smart home devices, we are dedicated to offering products that enhance your lifestyle.</p>
+
+  <h2>Our Team</h2>
+  <p>Our team consists of passionate individuals with diverse backgrounds in technology and customer service. We work tirelessly to ensure that you have the best shopping experience possible.</p>
+
+  <h2>Our Values</h2>
+  <ul>
+    <li><strong>Customer Satisfaction:</strong> We prioritize our customers and strive to meet and exceed their expectations.</li>
+    <li><strong>Quality Products:</strong> We carefully select our products to ensure they meet high standards of quality and reliability.</li>
+    <li><strong>Innovation:</strong> We stay ahead of the curve by offering the latest and most innovative tech products.</li>
+  </ul>
+
+  <h2>Contact Us</h2>
+  <p>If you have any questions or need assistance, please <%= link_to 'contact us', contact_path %>.</p>
+</div>

@@ -1,0 +1,107 @@
+<h1>Order Details</h1>
+
+<h2>Order #<%= @order.id %></h2>
+<p><strong>Status:</strong> <%= @order.status %></p>
+<p><strong>Order placed on:</strong> <%= @order.created_at.strftime("%B %d, %Y") %></p>
+
+<h2>Shipping Information</h2>
+<table>
+  <tbody>
+    <tr>
+      <th>Street</th>
+      <td><%= @order.address_street %></td>
+    </tr>
+    <tr>
+      <th>City</th>
+      <td><%= @order.address_city %></td>
+    </tr>
+    <tr>
+      <th>Province</th>
+      <td><%= @order.province&.name %></td>
+    </tr>
+    <tr>
+      <th>Postal Code</th>
+      <td><%= @order.address_postal_code %></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Order Items</h2>
+<table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order.order_items.each do |item| %>
+      <tr>
+        <td><%= item.product.name %></td>
+        <td><%= item.quantity %></td>
+        <td><%= number_to_currency(item.product.sale_price || item.product.price) %></td>
+        <td><%= number_to_currency(item.quantity * (item.product.sale_price || item.product.price)) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Summary</h2>
+<table>
+  <tbody>
+    <tr>
+      <th>Subtotal</th>
+      <td><%= number_to_currency(@order.subtotal) %></td>
+    </tr>
+    <tr>
+      <th>GST</th>
+      <td><%= number_to_currency(@order.gst) %></td>
+    </tr>
+    <tr>
+      <th>PST</th>
+      <td><%= number_to_currency(@order.pst) %></td>
+    </tr>
+    <tr>
+      <th>HST</th>
+      <td><%= number_to_currency(@order.hst) %></td>
+    </tr>
+    <tr>
+      <th>Total</th>
+      <td><%= number_to_currency(@order.total_price) %></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="btn-group" role="group">
+  <%= link_to 'Back to Cart', cart_path, class: 'btn btn-primary' %>
+
+  <%= link_to 'Continue Shopping', products_path, class: 'btn btn-secondary' %>
+</div>
+
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  th, td {
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  h2 {
+    margin-top: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+  }
+  .btn-group {
+    margin-top: 20px;
+  }
+</style>

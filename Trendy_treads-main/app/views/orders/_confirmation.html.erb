@@ -1,0 +1,39 @@
+<h1>Order Confirmation</h1>
+
+<h2>Order #<%= order.id %></h2>
+<p>Status: <%= order.status %></p>
+<p>Order placed on: <%= order.created_at.strftime("%B %d, %Y") %></p>
+
+<h2>Shipping Information</h2>
+<p><strong>Street:</strong> <%= order.address_street %></p>
+<p><strong>City:</strong> <%= order.address_city %></p>
+<p><strong>Province:</strong> <%= order.province&.name %></p>
+<p><strong>Postal Code:</strong> <%= order.address_postal_code %></p>
+
+<h2>Order Items</h2>
+<table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% order.order_items.each do |item| %>
+      <tr>
+        <td><%= item.product.name %></td>
+        <td><%= item.quantity %></td>
+        <td><%= number_to_currency(item.product.sale_price || item.product.price) %></td>
+        <td><%= number_to_currency(item.quantity * (item.product.sale_price || item.product.price)) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h3>Subtotal: <%= number_to_currency(order.subtotal) %></h3>
+<h3>GST: <%= number_to_currency(order.gst) %></h3>
+<h3>PST: <%= number_to_currency(order.pst) %></h3>
+<h3>HST: <%= number_to_currency(order.hst) %></h3>
+<h3>Total: <%= number_to_currency(order.total_price) %></h3>

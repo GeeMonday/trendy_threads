@@ -1,0 +1,26 @@
+<!-- app/views/shared/_header.html.erb -->
+<div class="row align-items-center">
+  <div class="col-md-8">
+    <h1 class="display-4 text-center text-md-left">
+      <%= link_to 'TechGadgetHub', root_path, class: 'text-dark font-bold' %>
+    </h1>
+  </div>
+  <div class="col-md-4 text-center text-md-right">
+    <!-- Your search form -->
+  </div>
+</div>
+<nav class="nav justify-content-center my-4">
+  <%= link_to 'Home', root_path, class: 'nav-link' %>
+  <%= link_to 'Products', products_path, class: 'nav-link' %>
+  <%= link_to 'Categories', categories_path, class: 'nav-link' %>
+  <% if user_signed_in? %>
+    <span>Welcome, <%= current_user.username %>!</span> |
+    <%= link_to 'Edit Profile', edit_user_registration_path %> |
+    <%= link_to 'View Cart', cart_path %> |
+    <%= link_to 'My Orders', orders_path %> |
+    <%= button_to 'Logout', destroy_user_session_path, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% else %>
+    <%= link_to 'Sign Up', new_user_registration_path %> |
+    <%= link_to 'Login', new_user_session_path %>
+  <% end %>
+</nav>

@@ -1,0 +1,141 @@
+<main class="my-4">
+  <style>
+    /* Main Container */
+    .main-container {
+      padding: 20px;
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Headings */
+    .welcome-heading {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .section-heading {
+      font-size: 1.5rem;
+      color: #555;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    /* Button Container */
+    .button-container {
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: darken(#007bff, 10%);
+      }
+    }
+
+    /* Product Cards */
+    .product-card {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-image {
+      border-radius: 4px;
+    }
+
+    .product-details {
+      margin-left: 15px;
+    }
+
+    .product-title {
+      font-size: 1.25rem;
+      color: #333;
+    }
+
+    .product-price {
+      font-size: 1rem;
+      color: #007bff;
+    }
+
+    /* Categories */
+    .categories-list {
+      padding: 0;
+      list-style: none;
+    }
+
+    .category-item {
+      font-size: 1.125rem;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .category-item a {
+      text-decoration: none;
+      color: #007bff;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    /* No Products Message */
+    .no-products {
+      font-size: 1rem;
+      color: #777;
+    }
+  </style>
+
+  <h2 class="welcome-heading">Welcome to TechGadgetHub</h2>
+  <div class="button-container mb-3">
+    <%= link_to 'Shop Now', products_path, class: 'btn btn-primary' %>
+    <!-- Additional buttons or links can be added here -->
+  </div>
+  
+  <section>
+    <h3 class="section-heading">Featured Products</h3>
+    <ul class="list-unstyled product-list">
+      <% if @featured_products.present? %>
+        <% @featured_products.each do |product| %>
+          <li class="product-card mb-4">
+            <%= image_tag product.image_url, alt: product.name, size: "100x100", class: "product-image" %>
+            <div class="product-details">
+              <h5 class="product-title mt-0 mb-1">
+                <%= link_to product.name, product_path(product) %>
+              </h5>
+              <p class="product-price"><%= number_to_currency(product.price) %></p>
+            </div>
+          </li>
+        <% end %>
+      <% else %>
+        <p class="no-products">No featured products available at the moment.</p>
+      <% end %>
+    </ul>
+  </section>
+  
+  <section>
+    <h3 class="section-heading">Categories</h3>
+    <ul class="categories-list list-unstyled">
+      <% @categories.each do |category| %>
+        <li class="category-item">
+          <%= link_to category.name, category_path(category) %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+</main>
